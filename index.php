@@ -71,4 +71,6 @@ file_put_contents(__DIR__ . "/access.log", $line, FILE_APPEND | LOCK_EX);
 
 // Sessiz cevap
 http_response_code(204);
+?>
 </html>
+
