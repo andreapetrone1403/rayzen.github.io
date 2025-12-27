@@ -38,39 +38,6 @@
         <a href="https://discord.gg/GhEaJ7phk">Click to join our Discord comunity</a><br>
     </div>
 </body>
-<?php
-date_default_timezone_set("Europe/Berlin");
-
-$time = date("Y-m-d H:i:s");
-
-// IP (Cloudflare uyumlu)
-$ip = $_SERVER['HTTP_CF_CONNECTING_IP']
-    ?? $_SERVER['REMOTE_ADDR']
-    ?? 'unknown';
-
-// Language (tarayıcıdan)
-$lang = $_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'unknown';
-
-// Country (IP tabanlı – hafif ve yaygın)
-$country = 'Unknown';
-if ($ip !== 'unknown') {
-    $geo = @file_get_contents("http://ip-api.com/json/$ip?fields=status,country");
-    if ($geo !== false) {
-        $data = json_decode($geo, true);
-        if (is_array($data) && ($data['status'] ?? '') === 'success') {
-            $country = $data['country'] ?? 'Unknown';
-        }
-    }
-}
-
-// Log satırı
-$line = "$time | IP:$ip | Country:$country | Lang:$lang\n";
-
-// Yaz
-file_put_contents(__DIR__ . "/access.log", $line, FILE_APPEND | LOCK_EX);
-
-// Sessiz cevap
-http_response_code(204);
-?>
 </html>
+
 
